@@ -1,0 +1,59 @@
+<?php
+//$Id: searchworks.module,v 1.3 2010-11-17 23:24:43 jbickar Exp $
+
+include_once drupal_get_path('module', 'searchworks') .'/searchworks.admin.inc';
+
+/*
+ * Implementation of hook_menu().
+ */
+function searchworks_menu() {
+  $items['admin/settings/searchworks'] = array(
+    'title' => t('SearchWorks Settings'),
+    'description' => t('Diagnostic page for Searchworks module'),
+    'type' => MENU_CALLBACK,
+    'page callback' => 'searchworks_page',
+//    'page arguments' => array('output'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'searchworks.admin.inc'
+  );
+  $items['searchworks/feed'] = array(
+    'title' => t('SearchWorks Feed'),
+    'description' => t('Feed for Searchworks module'),
+    'type' => MENU_CALLBACK,
+    'page callback' => 'searchworks_publish_feed',
+    'access arguments' => array('access content'),
+    'file' => 'searchworks.admin.inc'
+  );
+  return $items;
+}
+
+/*
+ * Implementation of hook_help().
+ */
+function searchworks_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#searchworks':
+    $output .= '<p>';
+    $output .= t('The SearchWorks module provides a mechanism for collating full XML objects from a SearchWorks RSS feed, ');
+    $output .= t('and pushing that out as an RSS feed within your Drupal site. ');
+    $output .= t('That RSS feed is then available for manipulation by the Feeds module or other means.');
+    $output .= '</p>';
+    $output .= '<h4>';
+    $output .= t('Configuration');
+    $output .= '</h4>';
+    $output .= '<p>';
+    $output .= t('Go to ');
+    $output .= l(t('the SearchWorks configuration page '), 'admin/settings/searchworks');
+    $output .= t('and enter the RSS feed URL for a search you have constructed in SearchWorks.');
+    $output .= '</p>';
+    $output .= '<h4>';
+    $output .= t('Viewing the Feed');
+    $output .= '</h4>';
+    $output .= '<p>';
+    $output .= t('Go to ');
+    $output .= l(t('the SearchWorks feed page '), 'searchworks/feed');
+    $output .= t('to view the collated feed.');
+    $output .= '</p>';
+    return $output;
+  }
+}

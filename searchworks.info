@@ -1,0 +1,6 @@
+; $Id: searchworks.info,v 1.1.1.1 2010-10-19 17:17:58 jbickar Exp $
+name = SearchWorks
+description = Custom module for pulling nodes from SearchWorks XML feeds
+package = Stanford
+version = 6.x-1.x-dev
+core = 6.x
